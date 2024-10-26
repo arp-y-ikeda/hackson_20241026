@@ -22,5 +22,5 @@ export const Destination: React.FC<DestinationProps> = ({ location }) => {
     })();
   }, []);
 
-  return <div>行き先 → {address}</div>;
+  return <div>ここまで歩こう！！ → {address}</div>;
 };

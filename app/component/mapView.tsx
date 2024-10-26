@@ -47,7 +47,7 @@ const MapView: React.FC<MapViewProps> = ({ startLocation, endLocation }) => {
     };
   }, []);
 
-  return <div id="map" style={{ width: '80%', height: '80%' }}></div>;
+  return <div id="map" className="rounded-md" style={{ width: '80%', height: '80%' }}></div>;
 };
 
 export default MapView;

@@ -1,11 +1,8 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
-type Location = {
-  /** 緯度 */
-  latitude: number;
-  /** 経度 */
-  longitude: number;
-};
+type Location = { lat: number; lng: number };
 
 /**
  * デバイスの現在地を取得します。ユーザーからの権限取得が必要です。
@@ -24,8 +21,8 @@ export const useCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
         });
       },
       (err) => setError(err.message)
