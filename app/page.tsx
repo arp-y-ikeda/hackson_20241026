@@ -8,6 +8,7 @@ import MapView from './component/mapView';
 import { useCurrentLocation } from './hooks/useCurrentLocation';
 import Image from 'next/image';
 import { Button } from './component/button';
+import { cn } from './lib/util';
 
 export default function Home() {
   const [start, setStart] = useState<boolean>(false);
@@ -20,12 +21,16 @@ export default function Home() {
 
   return (
     <main
-      className="w-screen h-screen font-[family-name:var(--font-cezannePro-m)] overflow-hidden"
+      className={cn(
+        'w-screen h-screen font-[family-name:var(--font-cezannePro-m)] overflow-hidden',
+        !start && 'cursor-pointer'
+      )}
       style={{ backgroundImage: "url('/images/wallPaper.jpg')" }}
+      onClick={() => !start && setStart(true)}
     >
       <div className="w-screen h-screen flex flex-col gap-y-2 items-center justify-center">
         {!start && (
-          <div role="button" className="flex flex-col items-center" onClick={() => setStart(true)}>
+          <div className="flex flex-col items-center">
             <Image
               src={'/images/title.png'}
               alt="♡お散歩だいしゅきクラブ♡"
