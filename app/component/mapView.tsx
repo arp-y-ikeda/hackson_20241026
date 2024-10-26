@@ -8,7 +8,7 @@ type MapViewProps = {
 };
 
 const MapView: React.FC<MapViewProps> = ({ startLocation, endLocation }) => {
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState<google.maps.Map | null>(null);
 
   useEffect(() => {
     const googleMapScript = document.createElement('script');
@@ -17,24 +17,21 @@ const MapView: React.FC<MapViewProps> = ({ startLocation, endLocation }) => {
     document.body.appendChild(googleMapScript);
 
     googleMapScript.onload = () => {
-      const map = new (window as any).google.maps.Map(document.getElementById('map'), {
-        center: startLocation, // 中心の座標
+      const mapInstance = new (window as any).google.maps.Map(document.getElementById('map'), {
+        center: startLocation,
         zoom: 12,
       });
-      setMap(map);
+      setMap(mapInstance);
 
       // ルート表示の設定
       const directionsService = new (window as any).google.maps.DirectionsService();
       const directionsRenderer = new (window as any).google.maps.DirectionsRenderer();
-      directionsRenderer.setMap(map);
-
-      const start = startLocation; // 出発地点
-      const end = endLocation; // 目的地
+      directionsRenderer.setMap(mapInstance);
 
       const request = {
-        origin: start,
-        destination: end,
-        travelMode: (window as any).google.maps.TravelMode.WALKING, // 移動手段を指定
+        origin: startLocation,
+        destination: endLocation,
+        travelMode: (window as any).google.maps.TravelMode.WALKING,
       };
 
       directionsService.route(request, (result: any, status: any) => {
@@ -44,8 +41,35 @@ const MapView: React.FC<MapViewProps> = ({ startLocation, endLocation }) => {
           console.error('ルートの取得に失敗しました: ' + status);
         }
       });
+
+      // 出発地点のマーカーを追加
+      new (window as any).google.maps.Marker({
+        position: startLocation,
+        map: mapInstance,
+        title: '出発地点',
+        icon: {
+          url: '/images/bigMan.png', // カスタムアイコンのURL
+          scaledSize: new (window as any).google.maps.Size(150, 300), // アイコンのサイズ調整
+        },
+        // label: {
+        //   text: 'AAAAA', // ラベルテキスト
+        //   color: '#FFFFFF', // ラベルの色
+        //   fontSize: '16px', // ラベルのフォントサイズ
+        // },
+      });
+
+      // 目的地のマーカーを追加
+      new (window as any).google.maps.Marker({
+        position: endLocation,
+        map: mapInstance,
+        title: '目的地',
+        icon: {
+          url: 'https://example.com/path/to/your/custom_end_icon.png', // カスタムアイコンのURL
+          scaledSize: new (window as any).google.maps.Size(30, 30), // アイコンのサイズ調整
+        },
+      });
     };
-  }, []);
+  }, [startLocation, endLocation]);
 
   return <div id="map" className="rounded-md" style={{ width: '80%', height: '80%' }}></div>;
 };

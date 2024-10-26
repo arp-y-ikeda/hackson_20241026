@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main className="container w-screen h-screen font-[family-name:var(--font-cezannePro-m)]">
       <div className="w-screen h-screen flex flex-col gap-y-2 items-center justify-center">
-        <p>♡お散歩だいしゅきクラブ♡</p>
+        <p className="font-bold">♡お散歩だいしゅきクラブ♡</p>
         <MapView startLocation={currentLocation.location} endLocation={randamLocation} />
         <Destination location={randamLocation} />
       </div>
