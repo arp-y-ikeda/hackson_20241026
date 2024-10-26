@@ -23,7 +23,7 @@ export const Destination: React.FC<DestinationProps> = ({ location }) => {
   }, []);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 text-white">
       <span>ここまで歩こう！！→</span>
       <div className="text-xl font-bold">{address.replace('日本、', '')}</div>
     </div>

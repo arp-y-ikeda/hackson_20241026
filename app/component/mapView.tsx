@@ -64,8 +64,8 @@ const MapView: React.FC<MapViewProps> = ({ startLocation, endLocation }) => {
         map: mapInstance,
         title: '目的地',
         icon: {
-          url: 'https://example.com/path/to/your/custom_end_icon.png', // カスタムアイコンのURL
-          scaledSize: new (window as any).google.maps.Size(30, 30), // アイコンのサイズ調整
+          url: '/images/wall.PNG', // カスタムアイコンのURL
+          scaledSize: new (window as any).google.maps.Size(200, 200), // アイコンのサイズ調整
         },
       });
     };
